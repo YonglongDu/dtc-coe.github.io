@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add ./docs/api/
+        git add ./docs/postcode/
         git commit -m "Update data `date +%Y-%m-%d`" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
