@@ -1,4 +1,13 @@
 {
+  "name": "DTC-COE",
+  "description": "Common functions",
+  "version": "0.1.0",
+  "author": "Yonglong Du",
+  "license": "MIT",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src/ --ext .js,.ts",
+    "main": "./node_modules/.bin/ts-node ./src/main.ts"
+  },
   "dependencies": {
     "csv-parser": "^3.0.0",
     "graceful-fs": "^4.2.11",
