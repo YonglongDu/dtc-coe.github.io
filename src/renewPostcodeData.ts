@@ -29,11 +29,19 @@ function createFile(data: string[]) {
 
 export default async function renewPostcodeData() {
   const res = await fetch('https://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip');
-  const buffer = await res.buffer();
-  const zip  = await JSZip.loadAsync(buffer);
-  const fileName = Object.keys(zip.files)[0];
-  const converterStream = iconv.decodeStream('shift_jis');
-  zip.file(fileName).nodeStream().pipe(converterStream)
-    .pipe(csv({ headers: false }))
-    .on('data', (data) => createFile(data));
+  // バイナリデータはarrayBufferメソッドを叩いて取り出す
+  const arrayBuffer = await res.arrayBuffer();
+  // Uint8ContentsのArrayBuffer型 -> Buffer型に変換
+  const buffer = Buffer.from(arrayBuffer);
+
+  var new_zip = new JSZip();
+  // more files !
+  new_zip.loadAsync(buffer)
+    .then(function(zip) {
+      const fileName = Object.keys(zip.files)[0];
+      const converterStream = iconv.decodeStream('shift_jis');
+      zip.file(fileName).nodeStream().pipe(converterStream)
+        .pipe(csv({ headers: false }))
+        .on('data', (data) => createFile(data));
+    });
 }

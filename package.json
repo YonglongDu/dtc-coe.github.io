@@ -9,7 +9,9 @@
     "main": "./node_modules/.bin/ts-node ./src/main.ts"
   },
   "dependencies": {
+    "@types/graceful-fs": "^4.1.9",
     "csv-parser": "^3.0.0",
+    "glob": "^10.3.10",
     "graceful-fs": "^4.2.11",
     "iconv-lite": "^0.6.3",
     "jszip": "^3.10.1",
