@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: yarn install
-    - name: Renew postcode data
+    #- name: renew postcode data
     - run: yarn main
     # - name: Commit files
     #   run: |
