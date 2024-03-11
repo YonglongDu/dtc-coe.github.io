@@ -1,15 +1,15 @@
 import * as fs from "graceful-fs";
-import glob from 'glob';
+import { glob } from 'glob';
 
 function removePostcodeData() {
-  glob('docs/api/*/*.json', (err, files) => {
+  glob('docs/postcode/*/*.json', (err, files) => {
     if (err) {
       console.log(err);
     } else {
       files.forEach((f) => fs.unlinkSync(f));
     }
   });
-  glob('docs/api/*/', (err, dirs) => {
+  glob('docs/postcode/*/', (err, dirs) => {
     if (err) {
       console.log(err);
     } else {

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import JSZip from 'jszip';
 import csv from 'csv-parser';
 import iconv from 'iconv-lite';
@@ -12,9 +11,9 @@ function createFile(data: string[]) {
       console.log(`unknown postal code: ${data[2]}`);
       return;
     }
-    fs.mkdirSync(`docs/api/${dir}`, { recursive: true });
+    fs.mkdirSync(`docs/postcode/${dir}`, { recursive: true });
     fs.writeFileSync(
-      `docs/api/${dir}/${file}.json`,
+      `docs/postcode/${dir}/${file}.json`,
       JSON.stringify({
         local_government_code: data[0],
         zip_code: data[2],
@@ -36,12 +35,15 @@ export default async function renewPostcodeData() {
 
   var new_zip = new JSZip();
   // more files !
-  new_zip.loadAsync(buffer)
-    .then(function(zip) {
-      const fileName = Object.keys(zip.files)[0];
+  const zip = await new_zip.loadAsync(buffer);
+
+  zip.forEach(async (relativePath, zipObject) => {
+    if (!zipObject.dir) {
+      //const fileName = relativePath;
       const converterStream = iconv.decodeStream('shift_jis');
-      zip.file(fileName).nodeStream().pipe(converterStream)
+      zipObject.nodeStream().pipe(converterStream)
         .pipe(csv({ headers: false }))
         .on('data', (data) => createFile(data));
-    });
+    }
+  })
 }
