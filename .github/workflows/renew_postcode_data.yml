@@ -27,7 +27,7 @@ jobs:
         node-version: '20.11.1'
         cache: 'npm'
     - run: npm ci
-    # - run: yarn install
+    - run: npm install
     #- name: renew postcode data
     - run: npm run main
     # - name: Commit files
