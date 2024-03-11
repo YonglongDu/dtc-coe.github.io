@@ -30,15 +30,15 @@ jobs:
     - run: npm install
     #- name: renew postcode data
     - run: npm run main
-    # - name: Commit files
-    #   run: |
-    #     git config --local user.email "action@github.com"
-    #     git config --local user.name "GitHub Action"
-    #     git add ./docs/postcode/
-    #     git commit -m "Update data `date +%Y-%m-%d`" -a
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #- run: npm run build --if-present
-    #- run: npm test
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ./docs/postcode/
+        git commit -m "Update data `date +%Y-%m-%d`" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: npm run build --if-present
+    - run: npm test
