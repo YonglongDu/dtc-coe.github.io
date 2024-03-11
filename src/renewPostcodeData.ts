@@ -39,6 +39,7 @@ export default async function renewPostcodeData() {
   const zip = await new_zip.loadAsync(buffer);
 
   zip.forEach(async (relativePath, zipObject) => {
+    console.log("relativePath is " + relativePath);
     if (!zipObject.dir) {
       //const fileName = relativePath;
       const converterStream = iconv.decodeStream('shift_jis');
