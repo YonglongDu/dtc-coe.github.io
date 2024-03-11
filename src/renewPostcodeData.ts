@@ -27,6 +27,7 @@ function createFile(data: string[]) {
 }
 
 export default async function renewPostcodeData() {
+  console.log("renewPostcodeData() started.");
   const res = await fetch('https://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip');
   // バイナリデータはarrayBufferメソッドを叩いて取り出す
   const arrayBuffer = await res.arrayBuffer();
@@ -46,4 +47,5 @@ export default async function renewPostcodeData() {
         .on('data', (data) => createFile(data));
     }
   })
+  console.log("renewPostcodeData() ended.");
 }
